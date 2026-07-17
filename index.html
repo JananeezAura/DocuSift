@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>DocuSift — Intelligent Document Processing</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  </head>
+  <body>
+    <div id="root">
+      <!-- AnalytixAI Loading Screen -- 4s progressive animation -->
+      <div id="analytixai-loader" style="position:fixed;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;background:linear-gradient(135deg,#0f172a,#1e1b4b,#3b0764);z-index:9999;font-family:system-ui,-apple-system,sans-serif;overflow:hidden;">
+        <!-- Background: orbiting orbs -->
+        <div style="position:absolute;inset:0;overflow:hidden;pointer-events:none;">
+          <div class="orbl orbl-a"></div>
+          <div class="orbl orbl-b"></div>
+          <div class="orbl orbl-c"></div>
+          <div class="orbl orbl-d"></div>
+          <!-- Grid pattern -->
+          <div style="position:absolute;inset:0;opacity:0.04;background-image:radial-gradient(circle at 1px 1px,rgba(255,255,255,0.4) 1px,transparent 0);background-size:40px 40px;"></div>
+        </div>
+
+        <!-- Phase 1 (0-0.8s): Icon slides up + glow -->
+        <div class="phase-icon">
+          <div style="width:80px;height:80px;border-radius:22px;background:linear-gradient(135deg,#6366f1,#8b5cf6);display:flex;align-items:center;justify-content:center;box-shadow:0 0 40px rgba(99,102,241,0.3),0 8px 32px rgba(99,102,241,0.2);">
+            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+            </svg>
+          </div>
+        </div>
+
+        <!-- Phase 2 (0.5-1.2s): Brand name fades in -->
+        <div class="phase-brand" style="text-align:center;margin-top:20px;">
+          <h1 style="margin:0;font-size:30px;font-weight:800;background:linear-gradient(135deg,#818cf8,#a78bfa,#c084fc);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;letter-spacing:-0.5px;">DocuSift</h1>
+        </div>
+
+        <!-- Phase 3 (1-1.8s): Tagline slides in -->
+        <div class="phase-tagline" style="text-align:center;margin-top:6px;">
+          <p style="margin:0;font-size:13px;color:rgba(255,255,255,0.45);font-weight:500;letter-spacing:0.3px;">Intelligent Document Processing</p>
+        </div>
+
+        <!-- Phase 4 (1.5-2.5s): Progress bar animates -->
+        <div class="phase-progress" style="width:200px;margin-top:32px;">
+          <div style="height:3px;background:rgba(255,255,255,0.06);border-radius:99px;overflow:hidden;">
+            <div class="progress-fill" style="height:100%;width:0%;border-radius:99px;background:linear-gradient(90deg,#6366f1,#a855f7);"></div>
+          </div>
+          <p class="progress-text" style="margin:8px 0 0;font-size:10px;color:rgba(255,255,255,0.25);letter-spacing:1px;text-transform:uppercase;text-align:center;">Initializing...</p>
+        </div>
+
+        <!-- Phase 5 (2.5-4s): Status messages cycle -->
+        <div class="phase-status" style="margin-top:28px;display:flex;align-items:center;gap:8px;">
+          <div style="width:5px;height:5px;border-radius:50%;background:#818cf8;"></div>
+          <span class="status-text" style="font-size:11px;color:rgba(255,255,255,0.3);letter-spacing:0.3px;">Connecting to AI engine...</span>
+        </div>
+
+        <!-- Footer -->
+        <p style="position:absolute;bottom:24px;margin:0;font-size:10px;color:rgba(255,255,255,0.12);letter-spacing:0.3px;">&copy; 2026 DocuSift. All rights reserved.</p>
+      </div>
+
+      <style>
+        /* -- Orb animations -- */
+        .orbl { position:absolute; border-radius:50%; pointer-events:none; }
+        .orbl-a { top:-120px; right:-100px; width:500px; height:500px;
+          background:radial-gradient(circle,rgba(99,102,241,0.12),transparent 70%);
+          animation:orbitPulse 4s ease-in-out infinite; }
+        .orbl-b { bottom:-100px; left:-80px; width:450px; height:450px;
+          background:radial-gradient(circle,rgba(168,85,247,0.12),transparent 70%);
+          animation:orbitPulse 4s ease-in-out infinite; animation-delay:1.5s; }
+        .orbl-c { top:20%; left:10%; width:200px; height:200px;
+          background:radial-gradient(circle,rgba(129,140,248,0.06),transparent 70%);
+          animation:orbitPulse 6s ease-in-out infinite; animation-delay:0.8s; }
+        .orbl-d { bottom:15%; right:15%; width:180px; height:180px;
+          background:radial-gradient(circle,rgba(192,132,252,0.06),transparent 70%);
+          animation:orbitPulse 6s ease-in-out infinite; animation-delay:2.5s; }
+
+        /* -- Phase animations -- */
+        .phase-icon { animation:phaseIcon 0.8s ease-out both; }
+        .phase-brand { animation:phaseUp 0.6s ease-out both; animation-delay:0.4s; }
+        .phase-tagline { animation:phaseUp 0.6s ease-out both; animation-delay:0.9s; opacity:0; }
+        .phase-progress { animation:phaseUp 0.5s ease-out both; animation-delay:1.4s; opacity:0; }
+        .phase-status { animation:phaseUp 0.5s ease-out both; animation-delay:2.2s; opacity:0; }
+
+        .progress-fill {
+          animation:fillBar 2.2s ease-out forwards;
+          animation-delay:1.6s;
+        }
+
+        .progress-text {
+          animation:switchText 4s steps(4) infinite;
+        }
+        .progress-text::before {
+          content: "Initializing...";
+          animation:statusCycle 3.5s steps(5) forwards;
+        }
+
+        .status-text {
+          animation:statusSwitch 3.5s steps(5) forwards;
+        }
+        .status-text::before {
+          content: "Connecting to AI engine...";
+          animation:statusCycle 3.5s steps(5) forwards;
+        }
+
+        /* Keyframes */
+        @keyframes orbitPulse {
+          0%,100% { transform:scale(1) rotate(0deg); opacity:0.3; }
+          50% { transform:scale(1.1) rotate(180deg); opacity:0.7; }
+        }
+        @keyframes phaseIcon {
+          0% { opacity:0; transform:translateY(30px) scale(0.8); }
+          100% { opacity:1; transform:translateY(0) scale(1); }
+        }
+        @keyframes phaseUp {
+          0% { opacity:0; transform:translateY(16px); }
+          100% { opacity:1; transform:translateY(0); }
+        }
+        @keyframes fillBar {
+          0% { width:0%; }
+          60% { width:70%; }
+          85% { width:88%; }
+          100% { width:95%; }
+        }
+        @keyframes statusCycle {
+          0% { opacity:1; }
+          100% { opacity:1; }
+        }
+        @keyframes statusSwitch {
+          0% { opacity:0; }
+          10% { opacity:1; }
+          30% { opacity:1; }
+          50% { opacity:0.6; }
+          70% { opacity:1; }
+          100% { opacity:0.8; }
+        }
+      </style>
+    </div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>
